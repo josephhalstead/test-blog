@@ -20,3 +20,9 @@ class Post(models.Model):
 	def __str__(self):
 		return self.title
 
+class Comment(models.Model):
+	comment = models.ForeignKey('Post')
+	author = models.ForeignKey('auth.User')
+	text = models.TextField(default = "")
+	created_date = models.DateTimeField(default=timezone.now())
+

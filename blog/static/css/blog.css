@@ -1,3 +1,5 @@
+
+
 h1 a { color: #FCA205; }
 
 body {padding-left: 15px;}
@@ -35,3 +37,15 @@ body {padding-left: 15px;}
 .post h1 a, .post h1 a:visited {
     color: #000000;
 }
+
+.my-form {
+	width: 100%;
+
+	padding-right: 1000px;
+
+
+
+
+
+}
+

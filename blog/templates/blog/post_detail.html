@@ -23,6 +23,72 @@
 
 		{% endif %}
 
+
 	</div>
+
+
+
+	<div>
+
+	<h2> Comments </h2>
+
+	</div>
+
+
+
+	<table class = "table">
+
+	<tr>
+
+		<th> User </th>
+
+		<th> Comment </th>
+
+		<th> Date </th>
+
+	</tr>
+
+
+	{% for comment in comments %}
+
+		<tr>
+
+
+
+		<td>  {{ comment.author }}                  </td>
+
+		<td> 	{{ comment.text|linebreaksbr }} </td>
+
+		
+
+		<td> {{ comment.created_date }} </td>
+
+
+		</tr>
+
+
+
+
+
+	{% endfor %}
+
+	</table>
+
+
+
+	<div>
+
+
+ 	<form method ="POST" class = "my-form"> {% csrf_token %}
+
+		{{ form.as_p }}
+
+
+		<button type="submit" class="save btn btn-default">Submit</button>
+	</form>
+
+
+	</div>
+
 
 {% endblock %}

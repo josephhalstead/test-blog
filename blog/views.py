@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
+from .models import Post, Comment
 from django.utils import timezone
-from .forms import PostForm
+from .forms import PostForm, PostComment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as log_out
 
@@ -17,11 +17,33 @@ def post_list(request):
 @login_required
 def post_detail(request, pk):
 
-
 	post = get_object_or_404(Post, pk=pk)
 
 
-	return render(request, 'blog/post_detail.html', {'post': post})
+	comments = Comment.objects.filter(comment=pk).order_by('created_date')
+
+
+	if request.method == 'POST':
+
+		form = PostComment(request.POST)
+
+		if form.is_valid():
+
+			comment = form.save(commit=False)
+			comment.author = request.user
+			comment.comment = post
+			comment.created_date = timezone.now()
+			comment.save()
+			return (redirect('post_detail', pk=pk))
+
+	else:
+
+		form = PostComment()
+
+
+
+
+	return render(request, 'blog/post_detail.html', {'post': post, 'comments': comments, 'form': form })
 
 
 @login_required
